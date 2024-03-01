@@ -2,15 +2,21 @@ import { ReactElement } from 'react';
 
 import RootLayoutPage from './UI/AppLayout.tsx';
 import HomePage from './UI/Home.tsx';
-import MenuPage from './features/menu/Menu.tsx';
+import MenuPage from './features/menu/menu-page/Menu.element.tsx';
+import { loader as menuLoader } from './features/menu/menu-page/Menu.loader.ts';
 import CartPage from './features/cart/Cart.tsx';
 import CreateOrderPage from './features/order/CreateOrder';
 import OrderPage from './features/order/Order';
+
+import { MenuData } from './services/apiRestaurant.ts';
+
+type LoaderFunction = () => Promise<MenuData>;
 
 type Route = {
   path?: string;
   element: ReactElement;
   children?: Route[];
+  loader?: LoaderFunction;
 };
 
 type RootRoutes = Route[];
@@ -26,6 +32,7 @@ const Root: RootRoutes = [
       {
         path: '/menu',
         element: <MenuPage />,
+        loader: menuLoader,
       },
       {
         path: '/cart',
