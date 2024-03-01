@@ -12,6 +12,27 @@ export interface Pizza {
   soldOut: boolean;
 }
 
+type OrderedPizza = {
+  addIngredients: string[];
+  removeIngredients: string[];
+  pizzaId: number;
+  name: string;
+  quantity: number;
+  unitPrice: number;
+  totalPrice: number;
+};
+
+export type Order = {
+  customer: string;
+  status: string;
+  priority: boolean;
+  cart: OrderedPizza[];
+  id: string;
+  estimatedDelivery: string;
+  orderPrice: number;
+  priorityPrice: number;
+};
+
 // Define an array type for the menu data
 export type MenuData = Pizza[];
 
@@ -30,7 +51,7 @@ export async function getOrder(id: string) {
   if (!res.ok) throw Error(`Couldn't find order #${id}`);
 
   const { data } = await res.json();
-  return data;
+  return data as Order;
 }
 
 export async function createOrder(newOrder: string) {

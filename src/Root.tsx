@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+import { LoaderFunction } from 'react-router-dom';
 
 import RootLayoutPage from './UI/AppLayout.tsx';
 import ErrorPage from './UI/Error.tsx';
@@ -7,11 +8,8 @@ import MenuPage from './features/menu/menu-page/Menu.element.tsx';
 import { loader as menuLoader } from './features/menu/menu-page/Menu.loader.ts';
 import CartPage from './features/cart/Cart.tsx';
 import CreateOrderPage from './features/order/CreateOrder';
-import OrderPage from './features/order/Order';
-
-import { MenuData } from './services/apiRestaurant.ts';
-
-type LoaderFunction = () => Promise<MenuData>;
+import OrderPage from './features/order/order-page/Order.element.tsx';
+import { loader as orderLoader } from './features/order/order-page/Order.loader.ts';
 
 type Route = {
   path?: string;
@@ -49,6 +47,8 @@ const Root: RootRoutes = [
       {
         path: '/order/:orderId',
         element: <OrderPage />,
+        loader: orderLoader,
+        errorElement: <ErrorPage />,
       },
     ],
   },
