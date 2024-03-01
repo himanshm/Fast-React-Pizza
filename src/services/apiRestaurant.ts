@@ -1,49 +1,64 @@
 const API_URL = 'https://react-fast-pizza-api.onrender.com/api';
-interface PizzaIngredient {
+
+export interface Ingredient {
   name: string;
 }
 
-export interface Pizza {
+export interface MenuItem {
   id: string;
   name: string;
   unitPrice: number;
   imageUrl: string;
-  ingredients: PizzaIngredient[];
+  ingredients: Ingredient[];
   soldOut: boolean;
 }
 
-type OrderedPizza = {
+export interface OrderedItem {
   addIngredients: string[];
   removeIngredients: string[];
-  pizzaId: number;
+  itemId: number;
   name: string;
   quantity: number;
   unitPrice: number;
   totalPrice: number;
-};
+}
 
-export type Order = {
+export interface Order {
   customer: string;
   status: string;
   priority: boolean;
-  cart: OrderedPizza[];
+  cart: OrderedItem[];
   id: string;
   estimatedDelivery: string;
   orderPrice: number;
   priorityPrice: number;
-};
+}
 
-// Define an array type for the menu data
-export type MenuData = Pizza[];
+// export interface CreateOrderPayload {
+//   id: string;
+//   customer: string;
+//   phone: string;
+//   address: string;
+//   priority: boolean;
+//   cart: {
+//     itemId: number;
+//     name: string;
+//     quantity: number;
+//     unitPrice: number;
+//     totalPrice: number;
+//   }[];
+// }
 
-export async function getMenu(): Promise<MenuData> {
+// export type MenuData = MenuItem[];
+
+export async function getMenu() {
   const res = await fetch(`${API_URL}/menu`);
 
   // fetch won't throw error on 400 errors (e.g. when URL is wrong), so we need to do it manually. This will then go into the catch block, where the message is set
   if (!res.ok) throw Error('Failed getting menu');
 
   const { data } = await res.json();
-  return data as MenuData;
+  return data;
 }
 
 export async function getOrder(id: string) {
@@ -51,10 +66,10 @@ export async function getOrder(id: string) {
   if (!res.ok) throw Error(`Couldn't find order #${id}`);
 
   const { data } = await res.json();
-  return data as Order;
+  return data;
 }
 
-export async function createOrder(newOrder: string) {
+export async function createOrder(newOrder) {
   try {
     const res = await fetch(`${API_URL}/order`, {
       method: 'POST',

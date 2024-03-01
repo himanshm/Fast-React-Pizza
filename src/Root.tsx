@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { LoaderFunction } from 'react-router-dom';
+import { type LoaderFunction, ActionFunction } from 'react-router-dom';
 
 import RootLayoutPage from './UI/AppLayout.tsx';
 import ErrorPage from './UI/Error.tsx';
@@ -7,7 +7,8 @@ import HomePage from './UI/Home.tsx';
 import MenuPage from './features/menu/menu-page/Menu.element.tsx';
 import { loader as menuLoader } from './features/menu/menu-page/Menu.loader.ts';
 import CartPage from './features/cart/Cart.tsx';
-import CreateOrderPage from './features/order/CreateOrder';
+import CreateOrderPage from './features/order/create-order-page/CreateOrder.element.tsx';
+import { action as createOrderAction } from './features/order/create-order-page/CreateOrder.action.ts';
 import OrderPage from './features/order/order-page/Order.element.tsx';
 import { loader as orderLoader } from './features/order/order-page/Order.loader.ts';
 
@@ -17,6 +18,7 @@ type Route = {
   errorElement?: ReactElement;
   children?: Route[];
   loader?: LoaderFunction;
+  action?: ActionFunction;
 };
 
 type RootRoutes = Route[];
@@ -43,6 +45,7 @@ const Root: RootRoutes = [
       {
         path: '/order/new',
         element: <CreateOrderPage />,
+        action: createOrderAction,
       },
       {
         path: '/order/:orderId',
