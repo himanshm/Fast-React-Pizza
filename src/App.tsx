@@ -1,9 +1,11 @@
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+import Root from './Root.tsx';
+
+const router = createBrowserRouter(Root);
+
 function App() {
-  return (
-    <div>
-       App
-    </div>
-  )
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;

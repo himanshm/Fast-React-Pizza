@@ -30,7 +30,7 @@ const fakeCart = [
   },
 ];
 
-function CreateOrder() {
+function CreateOrderPage() {
   // const [withPriority, setWithPriority] = useState(false);
   const cart = fakeCart;
 
@@ -77,4 +77,4 @@ function CreateOrder() {
   );
 }
 
-export default CreateOrder;
+export default CreateOrderPage;

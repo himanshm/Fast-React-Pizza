@@ -24,7 +24,7 @@ const fakeCart = [
   },
 ];
 
-function Cart() {
+function CartPage() {
   const cart = fakeCart;
 
   return (
@@ -41,4 +41,4 @@ function Cart() {
   );
 }
 
-export default Cart;
+export default CartPage;
