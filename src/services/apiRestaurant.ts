@@ -13,15 +13,23 @@ export interface MenuItem {
   soldOut: boolean;
 }
 
-export interface OrderedItem {
-  addIngredients: string[];
-  removeIngredients: string[];
-  itemId: number;
+export interface Pizza {
+  pizzaId: string;
   name: string;
   quantity: number;
   unitPrice: number;
   totalPrice: number;
 }
+
+export type OrderedItem = Pizza & {
+  addIngredients: string[];
+  removeIngredients: string[];
+  // itemId: number;
+  // name: string;
+  // quantity: number;
+  // unitPrice: number;
+  // totalPrice: number;
+};
 
 export interface Order {
   customer: string;
@@ -33,21 +41,6 @@ export interface Order {
   orderPrice: number;
   priorityPrice: number;
 }
-
-// export interface CreateOrderPayload {
-//   id: string;
-//   customer: string;
-//   phone: string;
-//   address: string;
-//   priority: boolean;
-//   cart: {
-//     itemId: number;
-//     name: string;
-//     quantity: number;
-//     unitPrice: number;
-//     totalPrice: number;
-//   }[];
-// }
 
 // export type MenuData = MenuItem[];
 
