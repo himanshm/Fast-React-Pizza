@@ -1,6 +1,6 @@
 import { redirect, type ActionFunction } from 'react-router-dom';
-
-import { CartItemType, createOrder } from '../../../services/apiRestaurant';
+import { CartItemType } from '../../cart/cartSlice.ts';
+import { createOrder } from '../../../services/apiRestaurant';
 
 interface FormData {
   customer: string;

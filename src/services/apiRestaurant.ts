@@ -1,3 +1,5 @@
+import { CartItemType } from '../features/cart/cartSlice.ts';
+
 const API_URL = 'https://react-fast-pizza-api.onrender.com/api';
 
 export interface Ingredient {
@@ -11,14 +13,6 @@ export interface PizzaType {
   imageUrl: string;
   ingredients: Ingredient[];
   soldOut: boolean;
-}
-
-export interface CartItemType {
-  pizzaId: string;
-  name: string;
-  quantity: number;
-  unitPrice: number;
-  totalPrice: number;
 }
 
 export type OrderedItem = CartItemType & {

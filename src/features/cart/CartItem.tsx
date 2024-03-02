@@ -1,5 +1,5 @@
 import Button from '../../UI/Button';
-import { CartItemType } from '../../services/apiRestaurant';
+import { CartItemType } from './cartSlice.ts';
 import { formatCurrency } from '../../utils/helpers';
 
 type CartItemProps = {

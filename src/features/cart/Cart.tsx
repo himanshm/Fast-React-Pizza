@@ -1,7 +1,7 @@
 import LinkButton from '../../UI/LinkButton';
 import Button from '../../UI/Button';
 import CartItem from './CartItem';
-import { CartItemType } from '../../services/apiRestaurant';
+import { CartItemType } from './cartSlice.ts';
 import { useAppSelector } from '../../store/hooks';
 
 const fakeCart: CartItemType[] = [
