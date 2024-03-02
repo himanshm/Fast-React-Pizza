@@ -1,13 +1,13 @@
 import { redirect, type ActionFunction } from 'react-router-dom';
 
-import { Pizza, createOrder } from '../../../services/apiRestaurant';
+import { CartItemType, createOrder } from '../../../services/apiRestaurant';
 
 interface FormData {
   customer: string;
   phone: string;
   priority: boolean;
   address: string;
-  cart: Pizza[];
+  cart: CartItemType[];
 }
 
 // https://uibakery.io/regex-library/phone-number

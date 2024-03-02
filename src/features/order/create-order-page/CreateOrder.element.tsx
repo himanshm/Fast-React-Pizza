@@ -1,6 +1,7 @@
 // import { useState } from 'react';
 import { Form, useActionData, useNavigation } from 'react-router-dom';
 import Button from '../../../UI/Button';
+import { useAppSelector } from '../../../store/hooks';
 
 interface FormErrors {
   phone?: string;
@@ -31,6 +32,7 @@ const fakeCart = [
 ];
 
 function CreateOrderPage() {
+  const username = useAppSelector((state) => state.user.username);
   const navigation = useNavigation();
   const isSubmitting = navigation.state === 'submitting';
 
@@ -47,7 +49,13 @@ function CreateOrderPage() {
       <Form method='POST'>
         <div className='mb-5 flex gap-2 flex-col sm:flex-row sm:items-center'>
           <label className='sm:basis-40'>First Name</label>
-          <input className='input grow' type='text' name='customer' required />
+          <input
+            className='input grow'
+            type='text'
+            name='customer'
+            defaultValue={username}
+            required
+          />
         </div>
 
         <div className='mb-5 flex gap-2 flex-col sm:flex-row sm:items-center'>
