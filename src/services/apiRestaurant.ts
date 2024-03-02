@@ -4,7 +4,7 @@ export interface Ingredient {
   name: string;
 }
 
-export interface MenuItem {
+export interface PizzaType {
   id: string;
   name: string;
   unitPrice: number;
@@ -13,7 +13,7 @@ export interface MenuItem {
   soldOut: boolean;
 }
 
-export interface Pizza {
+export interface CartItemType {
   pizzaId: string;
   name: string;
   quantity: number;
@@ -21,14 +21,9 @@ export interface Pizza {
   totalPrice: number;
 }
 
-export type OrderedItem = Pizza & {
+export type OrderedItem = CartItemType & {
   addIngredients: string[];
   removeIngredients: string[];
-  // itemId: number;
-  // name: string;
-  // quantity: number;
-  // unitPrice: number;
-  // totalPrice: number;
 };
 
 export interface Order {
@@ -42,7 +37,7 @@ export interface Order {
   priorityPrice: number;
 }
 
-// export type MenuData = MenuItem[];
+export type MenuData = PizzaType[];
 
 export async function getMenu() {
   const res = await fetch(`${API_URL}/menu`);
