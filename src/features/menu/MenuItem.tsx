@@ -1,12 +1,26 @@
 import { formatCurrency } from '../../utils/helpers';
 import { PizzaType } from '../../services/apiRestaurant';
 import Button from '../../UI/Button';
+import { useAppDispatch } from '../../store/hooks';
+import { addItem } from '../cart/cartSlice';
 
 type MenuItemProps = {
   pizza: PizzaType;
 };
 function MenuItem({ pizza }: MenuItemProps) {
-  const { name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
+  const dispatch = useAppDispatch();
+  const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
+
+  function handleAddToCart() {
+    const newItem = {
+      pizzaId: id,
+      name,
+      quantity: 1,
+      unitPrice,
+      totalPrice: unitPrice * 1,
+    };
+    dispatch(addItem(newItem));
+  }
 
   return (
     <li className='flex gap-4 py-2'>
@@ -28,7 +42,11 @@ function MenuItem({ pizza }: MenuItemProps) {
               Sold out
             </p>
           )}
-          <Button btntype='small'>Add to cart</Button>
+          {!soldOut && (
+            <Button btntype='small' onClick={handleAddToCart}>
+              Add to cart
+            </Button>
+          )}
         </div>
       </div>
     </li>
