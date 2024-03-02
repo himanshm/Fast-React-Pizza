@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../../store/store.ts';
 
 export interface CartItemType {
   pizzaId: string;
@@ -67,3 +68,27 @@ export const {
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
+
+// export const selectTotalCartQuantity = (state: RootState): number => {
+//   return state.cart.cart.reduce((total, item) => total + item.quantity, 0);
+// };
+
+// export const selectTotalCartPrice = (state: RootState): number => {
+//   return state.cart.cart.reduce((total, item) => total + item.totalPrice, 0);
+// };
+
+const selectCartItems = (state: RootState) => state.cart.cart;
+
+export const selectTotalCartQuantity = createSelector(
+  [selectCartItems],
+  (cartItems) => {
+    return cartItems.reduce((total, item) => total + item.quantity, 0);
+  }
+);
+
+export const selectTotalCartPrice = createSelector(
+  [selectCartItems],
+  (cartItems) => {
+    return cartItems.reduce((total, item) => total + item.totalPrice, 0);
+  }
+);
