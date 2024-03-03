@@ -3,13 +3,13 @@ import { useAppDispatch } from '../../store/hooks';
 import { deleteItem } from './cartSlice';
 
 type DeleteItemProps = {
-  ItemId: string;
+  itemId: string;
 };
 
-function DeleteItem({ ItemId }: DeleteItemProps) {
+function DeleteItem({ itemId }: DeleteItemProps) {
   const dispatch = useAppDispatch();
   return (
-    <Button btntype='small' onClick={() => dispatch(deleteItem(ItemId))}>
+    <Button btntype='small' onClick={() => dispatch(deleteItem(itemId))}>
       Delete
     </Button>
   );

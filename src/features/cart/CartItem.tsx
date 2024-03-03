@@ -1,6 +1,9 @@
-import { CartItemType } from './cartSlice.ts';
 import { formatCurrency } from '../../utils/helpers';
 import DeleteItem from './DeleteItem.tsx';
+import UpdateItemQuantity from './UpdateItemQuantity.tsx';
+import { RootState } from '../../store/store.ts';
+import { useAppSelector } from '../../store/hooks.ts';
+import { selectCurrentQuantityById, CartItemType } from './cartSlice.ts';
 
 type CartItemProps = {
   item: CartItemType;
@@ -8,6 +11,10 @@ type CartItemProps = {
 
 function CartItem({ item }: CartItemProps) {
   const { name, quantity, totalPrice, pizzaId } = item;
+
+  const currentQuantity = useAppSelector((state: RootState) =>
+    selectCurrentQuantityById(pizzaId)(state)
+  );
 
   return (
     <li className='py-3 sm:flex sm:items-center sm:justify-between'>
@@ -17,7 +24,11 @@ function CartItem({ item }: CartItemProps) {
       <div className='flex items-center justify-between sm:gap-6'>
         <p className='text-sm font-bold'>{formatCurrency(totalPrice)}</p>
 
-        <DeleteItem ItemId={pizzaId} />
+        <UpdateItemQuantity
+          itemId={pizzaId}
+          currentQuantity={currentQuantity}
+        />
+        <DeleteItem itemId={pizzaId} />
       </div>
     </li>
   );

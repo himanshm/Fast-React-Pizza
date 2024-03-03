@@ -5,6 +5,7 @@ import { RootState } from '../../store/store.ts';
 import { useAppDispatch, useAppSelector } from '../../store/hooks.ts';
 import { addItem, selectCurrentQuantityById } from '../cart/cartSlice.ts';
 import DeleteItem from '../cart/DeleteItem.tsx';
+import UpdateItemQuantity from '../cart/UpdateItemQuantity.tsx';
 
 type MenuItemProps = {
   pizza: PizzaType;
@@ -51,7 +52,15 @@ function MenuItem({ pizza }: MenuItemProps) {
             </p>
           )}
 
-          {isInCart && <DeleteItem ItemId={id} />}
+          {isInCart && (
+            <div className='flex items-center gap-3 sm:gap-8'>
+              <UpdateItemQuantity
+                itemId={id}
+                currentQuantity={currentQuantity}
+              />
+              <DeleteItem itemId={id} />
+            </div>
+          )}
 
           {!soldOut && !isInCart && (
             <Button btntype='small' onClick={handleAddToCart}>
