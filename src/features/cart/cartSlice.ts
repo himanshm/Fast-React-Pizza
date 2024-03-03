@@ -15,13 +15,13 @@ interface CartState {
 
 const initialState: CartState = {
   cart: [
-    {
-      pizzaId: '',
-      name: '',
-      quantity: 0,
-      unitPrice: 0,
-      totalPrice: 0,
-    },
+    // {
+    //   pizzaId: '',
+    //   name: '',
+    //   quantity: 0,
+    //   unitPrice: 0,
+    //   totalPrice: 0,
+    // },
   ],
 };
 
@@ -78,6 +78,11 @@ export default cartSlice.reducer;
 // };
 
 const selectCartItems = (state: RootState) => state.cart.cart;
+
+export const selectCart = createSelector(
+  (state: RootState) => state.cart.cart,
+  (cart) => cart
+);
 
 export const selectTotalCartQuantity = createSelector(
   [selectCartItems],

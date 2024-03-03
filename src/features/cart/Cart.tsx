@@ -1,37 +1,18 @@
 import LinkButton from '../../UI/LinkButton';
 import Button from '../../UI/Button';
 import CartItem from './CartItem';
-import { CartItemType } from './cartSlice.ts';
-import { useAppSelector } from '../../store/hooks';
-
-const fakeCart: CartItemType[] = [
-  {
-    pizzaId: '12',
-    name: 'Mediterranean',
-    quantity: 2,
-    unitPrice: 16,
-    totalPrice: 32,
-  },
-  {
-    pizzaId: '6',
-    name: 'Vegetale',
-    quantity: 1,
-    unitPrice: 13,
-    totalPrice: 13,
-  },
-  {
-    pizzaId: '11',
-    name: 'Spinach and Mushroom',
-    quantity: 1,
-    unitPrice: 15,
-    totalPrice: 15,
-  },
-];
+import { clearCart, selectCart } from './cartSlice.ts';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { RootState } from '../../store/store.ts';
+import EmptyCart from './EmptyCart.tsx';
 
 function CartPage() {
+  const dispatch = useAppDispatch();
   const username = useAppSelector((state) => state.user.username);
-  const cart = fakeCart;
 
+  const cart = useAppSelector((state: RootState) => selectCart(state));
+
+  if (!cart.length) return <EmptyCart />;
   return (
     <div className='px-4 py-3'>
       <LinkButton to='/menu'>&larr; Back to menu</LinkButton>
@@ -48,7 +29,9 @@ function CartPage() {
         <Button btntype='primary' to='/order/new'>
           Order pizzas
         </Button>
-        <Button btntype='secondary'>Clear cart</Button>
+        <Button btntype='secondary' onClick={() => dispatch(clearCart())}>
+          Clear cart
+        </Button>
       </div>
     </div>
   );
