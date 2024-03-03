@@ -17,7 +17,6 @@ export const loader: LoaderFunction = async ({ params }: Args) => {
     throw new Error('Order ID is undefined');
   }
   const order = await getOrder(params.orderId);
-  console.log(order);
   return order;
 };
 

@@ -30,7 +30,6 @@ export const action: ActionFunction = async ({ request }) => {
 
   const cartString = typeof cartData === 'string' ? cartData : '';
   const data = Object.fromEntries(formData);
-  console.log(data);
 
   const order = {
     ...data,
