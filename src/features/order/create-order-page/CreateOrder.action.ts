@@ -1,6 +1,7 @@
 import { redirect, type ActionFunction } from 'react-router-dom';
-import { CartItemType } from '../../cart/cartSlice.ts';
+import { CartItemType, clearCart } from '../../cart/cartSlice.ts';
 import { createOrder } from '../../../services/apiRestaurant';
+import store from '../../../store/store.ts';
 
 interface FormData {
   customer: string;
@@ -46,6 +47,8 @@ export const action: ActionFunction = async ({ request }) => {
   if (Object.keys(errors).length > 0) return errors;
 
   const newOrder = await createOrder(order);
+
+  store.dispatch(clearCart()); // Do not overuse
 
   return redirect(`/order/${newOrder.id}`);
 };
