@@ -1,15 +1,23 @@
 import { formatCurrency } from '../../utils/helpers';
 import { PizzaType } from '../../services/apiRestaurant';
 import Button from '../../UI/Button';
-import { useAppDispatch } from '../../store/hooks';
-import { addItem } from '../cart/cartSlice';
+import { RootState } from '../../store/store.ts';
+import { useAppDispatch, useAppSelector } from '../../store/hooks.ts';
+import { addItem, selectCurrentQuantityById } from '../cart/cartSlice.ts';
+import DeleteItem from '../cart/DeleteItem.tsx';
 
 type MenuItemProps = {
   pizza: PizzaType;
 };
 function MenuItem({ pizza }: MenuItemProps) {
-  const dispatch = useAppDispatch();
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
+
+  const currentQuantity = useAppSelector((state: RootState) =>
+    selectCurrentQuantityById(id)(state)
+  );
+  const dispatch = useAppDispatch();
+
+  const isInCart = currentQuantity > 0;
 
   function handleAddToCart() {
     const newItem = {
@@ -42,7 +50,10 @@ function MenuItem({ pizza }: MenuItemProps) {
               Sold out
             </p>
           )}
-          {!soldOut && (
+
+          {isInCart && <DeleteItem ItemId={id} />}
+
+          {!soldOut && !isInCart && (
             <Button btntype='small' onClick={handleAddToCart}>
               Add to cart
             </Button>

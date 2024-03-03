@@ -1,13 +1,13 @@
-import Button from '../../UI/Button';
 import { CartItemType } from './cartSlice.ts';
 import { formatCurrency } from '../../utils/helpers';
+import DeleteItem from './DeleteItem.tsx';
 
 type CartItemProps = {
   item: CartItemType;
 };
 
 function CartItem({ item }: CartItemProps) {
-  const { name, quantity, totalPrice } = item;
+  const { name, quantity, totalPrice, pizzaId } = item;
 
   return (
     <li className='py-3 sm:flex sm:items-center sm:justify-between'>
@@ -16,7 +16,8 @@ function CartItem({ item }: CartItemProps) {
       </p>
       <div className='flex items-center justify-between sm:gap-6'>
         <p className='text-sm font-bold'>{formatCurrency(totalPrice)}</p>
-        <Button btntype='small'>Delete</Button>
+
+        <DeleteItem ItemId={pizzaId} />
       </div>
     </li>
   );

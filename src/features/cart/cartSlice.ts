@@ -14,15 +14,7 @@ interface CartState {
 }
 
 const initialState: CartState = {
-  cart: [
-    // {
-    //   pizzaId: '',
-    //   name: '',
-    //   quantity: 0,
-    //   unitPrice: 0,
-    //   totalPrice: 0,
-    // },
-  ],
+  cart: [],
 };
 
 const cartSlice = createSlice({
@@ -77,12 +69,13 @@ export default cartSlice.reducer;
 //   return state.cart.cart.reduce((total, item) => total + item.totalPrice, 0);
 // };
 
-const selectCartItems = (state: RootState) => state.cart.cart;
+// export const selectCurrentQuantityById = (id: string) => {
+//   return (state: RootState): number => {
+//     return state.cart.cart.find((item) => item.pizzaId === id)?.quantity ?? 0;
+//   };
+// };
 
-export const selectCart = createSelector(
-  (state: RootState) => state.cart.cart,
-  (cart) => cart
-);
+export const selectCartItems = (state: RootState) => state.cart.cart;
 
 export const selectTotalCartQuantity = createSelector(
   [selectCartItems],
@@ -97,3 +90,12 @@ export const selectTotalCartPrice = createSelector(
     return cartItems.reduce((total, item) => total + item.totalPrice, 0);
   }
 );
+
+export const selectCurrentQuantityById = (id: string) =>
+  createSelector(
+    (state: RootState) => state.cart.cart,
+    (cart: CartItemType[]) => {
+      const item = cart.find((item) => item.pizzaId === id);
+      return item ? item.quantity : 0;
+    }
+  );

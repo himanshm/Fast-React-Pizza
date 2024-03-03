@@ -1,7 +1,7 @@
 import LinkButton from '../../UI/LinkButton';
 import Button from '../../UI/Button';
 import CartItem from './CartItem';
-import { clearCart, selectCart } from './cartSlice.ts';
+import { clearCart, selectCartItems } from './cartSlice.ts';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { RootState } from '../../store/store.ts';
 import EmptyCart from './EmptyCart.tsx';
@@ -10,7 +10,7 @@ function CartPage() {
   const dispatch = useAppDispatch();
   const username = useAppSelector((state) => state.user.username);
 
-  const cart = useAppSelector((state: RootState) => selectCart(state));
+  const cart = useAppSelector((state: RootState) => selectCartItems(state));
 
   if (!cart.length) return <EmptyCart />;
   return (
