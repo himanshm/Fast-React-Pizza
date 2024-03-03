@@ -10,6 +10,7 @@ import CartPage from './features/cart/Cart.tsx';
 import CreateOrderPage from './features/order/create-order-page/CreateOrder.element.tsx';
 import { action as createOrderAction } from './features/order/create-order-page/CreateOrder.action.ts';
 import OrderPage from './features/order/order-page/Order.element.tsx';
+import { action as UpdateOrderAction } from './features/order/update-order/UpdateOrder.action.ts';
 import { loader as orderLoader } from './features/order/order-page/Order.loader.ts';
 
 type Route = {
@@ -51,6 +52,7 @@ const Root: RootRoutes = [
         path: '/order/:orderId',
         element: <OrderPage />,
         loader: orderLoader,
+        action: UpdateOrderAction,
         errorElement: <ErrorPage />,
       },
     ],
